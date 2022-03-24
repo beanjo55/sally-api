@@ -37,7 +37,10 @@ async function addPic(url: string): Promise<string> {
 	const ext = split[split.length - 1];
 
 	const stream = res.data.pipe(createWriteStream(resolve('../', 'data/', `${nextID.toString()}.${ext}`)));
-	return new Promise((res) => {
+	return new Promise((res, rej) => {
+		stream.on('error', (err: Error) => {
+			rej(err);
+		});
 		stream.on('finish', () => {
 			res(nextID.toString());
 		});
