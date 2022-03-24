@@ -146,7 +146,7 @@ if (client) {
 
 		const snowflake = req.body.data.options[0].value;
 		const url = req.body.data.resolved.attachments[snowflake].url;
-		res.status(200).send({ type: 5, flags: 64 });
+		res.status(200).send({ type: 5, data: { flags: 64 } });
 		console.log('deferred')
 		addPic(url).then((newID) => {
 			loadPics();
