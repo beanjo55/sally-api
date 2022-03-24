@@ -13,7 +13,7 @@ let picCache: Array<{
 }> = [];
 
 function loadPics() {
-	const files = readdirSync(resolve('../', 'data'))
+	const files = readdirSync(resolve('data'))
 	picCache = files.map((file, idx) => ({
 		id: idx,
 		path: file,
@@ -35,7 +35,7 @@ async function addPic(url: string): Promise<string> {
 
 	const split = url.split('.');
 	const ext = split[split.length - 1];
-	const path = resolve('../', 'data/', `${nextID.toString()}.${ext}`);
+	const path = resolve('data/', `${nextID.toString()}.${ext}`);
 
 	const stream = res.data.pipe(createWriteStream(path));
 	return new Promise((res, rej) => {
