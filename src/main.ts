@@ -143,34 +143,30 @@ if (client) {
 
 		const snowflake = req.body.data.options[0].value;
 		const url = req.body.data.resolved.attachments[snowflake].url;
-		res.status(200).send({ type: 4, flags: 64 });
+		res.status(200).send({ type: 5, flags: 64 });
 		console.log('deferred')
 		addPic(url).then((newID) => {
 			loadPics();
 			axios.patch(`https://discord.com/api/v10/webhooks/${req.body.application_id}/${req.body.token}/messages/@original`, {
-				data: {
-					embeds: [{
-						color: 0xf04947,
-						title: 'Upload complete',
-						footer: { text: 'Sally uwu' },
-						timestamp: new Date,
-						image: {
-							url: `http://${host}/pics/${newID}`,
-						},
-					}],
-				}
+				embeds: [{
+					color: 0xf04947,
+					title: 'Upload complete',
+					footer: { text: 'Sally uwu' },
+					timestamp: new Date,
+					image: {
+						url: `http://${host}/pics/${newID}`,
+					}
+				}],
 			}).catch(console.error);
 		}).catch((err) => {
 			console.error(err);
 			axios.patch(`https://discord.com/api/v10/webhooks/${req.body.application_id}/${req.body.token}/messages/@original`, {
-				data: {
-					embeds: [{
-						color: 0xf04947,
-						title: 'Upload failed',
-						footer: { text: 'Sally uwu' },
-						timestamp: new Date,
-					}],
-				}
+				embeds: [{
+					color: 0xf04947,
+					title: 'Upload failed',
+					footer: { text: 'Sally uwu' },
+					timestamp: new Date,
+				}],
 			}).catch(console.error);
 		});
 	}
