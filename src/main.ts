@@ -16,11 +16,11 @@ function loadPics() {
 	const files = readdirSync(resolve('data')).sort((a, b) => {
 		const aNum = Number(a.split('.')[0]);
 		const bNum = Number(b.split('.')[0]);
-		if (a < b) {
+		if (aNum < bNum) {
 			return -1;
 		}
 
-		if (a > b) {
+		if (aNum > bNum) {
 			return 1;
 		}
 
