@@ -107,7 +107,7 @@ server.get('/pics/:id', (req, res) => {
 });
 
 server.get(['/', '/random'], (req, res) => {
-	res.status(307).redirect(`/pics/${pickRandom()}`);
+	res.status(307).redirect(`/pics/${pickRandom().id}`);
 });
 
 if (client) {
