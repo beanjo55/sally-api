@@ -271,4 +271,5 @@ if (client) {
 }
 
 loadPics();
+console.log(picCache)
 server.listen(Number(port));
