@@ -1,6 +1,7 @@
 {
   "adminToken": "some secure token for authorizing with /admin/ routes",
   "host": "the host for the api, for returning well formed urls",
+  "port": "port the server should listen on (default 80)",
   "client": {
     "adminId": "Discord user id for the service admin, for the /upload command",
     "key": "Application public key for verifying incoming interactions"

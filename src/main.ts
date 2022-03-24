@@ -5,7 +5,7 @@ import { resolve } from 'path';
 import { sign } from 'tweetnacl';
 import { AdminUploadPayload } from './types';
 
-const { adminToken, host, client } = require('../config.json');
+const { adminToken, host, client, port = 80 } = require('../config.json');
 
 let picCache: Array<{
 	id: number;
@@ -198,3 +198,5 @@ if (client) {
 		}
 	});
 }
+
+server.listen(Number(port));
