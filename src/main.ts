@@ -13,7 +13,7 @@ let picCache: Array<{
 }> = [];
 
 function loadPics() {
-	const files = readdirSync(resolve('../', 'data'))
+	const files = readdirSync(resolve('data'))
 	picCache = files.map((file, idx) => ({
 		id: idx,
 		path: `data/${file}`,
@@ -101,8 +101,8 @@ server.get('/pics/:id', (req, res) => {
 	if (!pic) {
 		return res.status(404).send('Not Found');
 	}
-
-	return res.status(200).sendFile(pic.path, { root: __dirname });
+	console.log(resolve('data/', pic.path));
+	return res.status(200).sendFile(resolve('data/', pic.path));
 
 });
 
