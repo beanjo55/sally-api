@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
 import axios from 'axios';
-import { readdirSync, writeFileSync } from 'fs';
+import { readdirSync, createWriteStream } from 'fs';
 import { resolve } from 'path';
 import { sign } from 'tweetnacl';
 import { AdminUploadPayload } from './types';
@@ -27,7 +27,21 @@ function pickRandom(): { id: number, path: string } {
 async function addPic(url: string): Promise<string> {
 	const nextID = picCache.length ? Math.max(...picCache.map(p => p.id)) + 1 : 1;
 
-	return nextID.toString();
+	const res = await axios({
+		method: 'GET',
+		url,
+		responseType: 'stream',
+	});
+
+	const split = url.split('.');
+	const ext = split[split.length - 1];
+
+	const stream = res.data.pipe(createWriteStream(resolve('../', 'data/', `${nextID.toString()}.${ext}`)));
+	return new Promise((res) => {
+		stream.on('finish', () => {
+			res(nextID.toString());
+		});
+	})
 }
 
 
@@ -68,7 +82,8 @@ server.post('/admin/addfile', (req, res) => {
 	}
 
 	addPic(url).then((newId) => {
-		return res.status(200).send(`http://${host}/pics${newId}`);
+		loadPics();
+		return res.status(200).send(`http://${host}/pics/${newId}`);
 	}).catch((err) => {
 		console.error(err);
 		return res.status(500).send((err as Error).message);
@@ -125,6 +140,7 @@ if (client) {
 		const url = req.body.data.resolved.attachments[snowflake].url;
 		res.status(200).send({ type: 4, flags: 64 });
 		addPic(url).then((newID) => {
+			loadPics();
 			axios.patch(`https://discord.com/api/v10/webhooks/${req.body.application_id}/${req.body.token}/messages/@original`, {
 				data: {
 					embeds: [{
