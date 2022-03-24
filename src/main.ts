@@ -101,8 +101,8 @@ server.get('/pics/:id', (req, res) => {
 	if (!pic) {
 		return res.status(404).send('Not Found');
 	}
-	console.log(resolve('data/', pic.path));
-	return res.status(200).sendFile(resolve('data/', pic.path));
+	console.log(resolve(pic.path));
+	return res.status(200).sendFile(resolve(pic.path));
 
 });
 
