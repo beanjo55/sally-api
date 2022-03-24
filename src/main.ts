@@ -32,6 +32,7 @@ async function addPic(url: string): Promise<string> {
 
 
 const server = express();
+server.use(express.json());
 
 server.get('/admin/reload', (req, res) => {
 	if (!req.headers.authorization || req.headers.authorization !== adminToken) {
@@ -153,7 +154,7 @@ if (client) {
 	}
 
 	server.post('/interaction', (req, res) => {
-		console.log(req.body)
+		console.log(req)
 		const sig = req.headers['x-signature-ed25519'] as string;
 		const timestamp = req.headers['x-signature-timestamp'] as string;
 		const key = client.key;
@@ -202,5 +203,4 @@ if (client) {
 	});
 }
 
-server.use(express.json());
 server.listen(Number(port));
