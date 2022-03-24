@@ -153,6 +153,7 @@ if (client) {
 	}
 
 	server.post('/interaction', (req, res) => {
+		console.log(req.body)
 		const sig = req.headers['x-signature-ed25519'] as string;
 		const timestamp = req.headers['x-signature-timestamp'] as string;
 		const key = client.key;
