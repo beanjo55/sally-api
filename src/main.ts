@@ -13,7 +13,7 @@ let picCache: Array<{
 }> = [];
 
 function loadPics() {
-	const files = readdirSync(resolve('data'))
+	const files = readdirSync(resolve('../', 'data'))
 	picCache = files.map((file, idx) => ({
 		id: idx,
 		path: `data/${file}`,
