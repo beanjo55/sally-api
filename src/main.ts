@@ -102,7 +102,7 @@ server.get('/pics/:id', (req, res) => {
 		return res.status(404).send('Not Found');
 	}
 
-	return res.status(200).sendFile(pic.path);
+	return res.status(200).sendFile(pic.path, { root: __dirname });
 
 });
 
