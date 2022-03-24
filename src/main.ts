@@ -124,6 +124,7 @@ if (client) {
 	}
 
 	function sallyAdminHandler(req: Request, res: Response) {
+		console.log('doing upload command')
 		const user = req.body.member?.user?.id ?? req.body.user.id;
 		if (!user || user !== client.adminId) {
 			return res.status(200).send({
@@ -139,6 +140,7 @@ if (client) {
 		const snowflake = req.body.data.options[0].value;
 		const url = req.body.data.resolved.attachments[snowflake].url;
 		res.status(200).send({ type: 4, flags: 64 });
+		console.log('deferred')
 		addPic(url).then((newID) => {
 			loadPics();
 			axios.patch(`https://discord.com/api/v10/webhooks/${req.body.application_id}/${req.body.token}/messages/@original`, {
@@ -194,6 +196,7 @@ if (client) {
 			console.log('ping interaction');
 			return res.status(200).send({ type: 1 });
 		}
+		console.log('doing app command')
 
 		switch (req.body.data.name) {
 			case 'sally': {
