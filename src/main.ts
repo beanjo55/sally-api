@@ -221,4 +221,5 @@ if (client) {
 	});
 }
 
+loadPics();
 server.listen(Number(port));
