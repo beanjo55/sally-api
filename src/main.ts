@@ -13,7 +13,19 @@ let picCache: Array<{
 }> = [];
 
 function loadPics() {
-	const files = readdirSync(resolve('data'))
+	const files = readdirSync(resolve('data')).sort((a, b) => {
+		const aNum = Number(a.split('.')[0]);
+		const bNum = Number(b.split('.')[0]);
+		if (a < b) {
+			return -1;
+		}
+
+		if (a > b) {
+			return 1;
+		}
+
+		return 0;
+	});
 	picCache = files.map((file, idx) => ({
 		id: idx,
 		path: `data/${file}`,
