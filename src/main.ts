@@ -113,6 +113,18 @@ server.get(['/', '/random'], (req, res) => {
 if (client) {
 	console.log('Client specified, creating interaction endpoint');
 	function sallyPosterhandler(req: Request, res: Response) {
+		console.log({
+			type: 4,
+			embeds: [{
+				color: 0xf04947,
+				title: 'Found Sally!!!',
+				footer: { text: 'Sally uwu' },
+				timestamp: new Date,
+				image: {
+					url: `http://${host}/pics/${pickRandom().id}`
+				}
+			}],
+		})
 		return res.status(200).send({
 			type: 4,
 			embeds: [{
