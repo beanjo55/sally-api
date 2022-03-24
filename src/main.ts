@@ -43,7 +43,7 @@ async function addPic(url: string): Promise<string> {
 			rej(err);
 		});
 		stream.on('finish', () => {
-			res(nextID.toString());
+			res(`${nextID.toString()}.${ext}`);
 		});
 	})
 }
@@ -157,6 +157,7 @@ if (client) {
 						url: `http://${host}/pics/${newID}`,
 					}
 				}],
+				flags: 64,
 			}).catch(console.error);
 		}).catch((err) => {
 			console.error(err);
@@ -167,6 +168,7 @@ if (client) {
 					footer: { text: 'Sally uwu' },
 					timestamp: new Date,
 				}],
+				flags: 64,
 			}).catch(console.error);
 		});
 	}
