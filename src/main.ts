@@ -153,7 +153,6 @@ if (client) {
 	}
 
 	server.post('/interaction', (req, res) => {
-		console.log(req)
 		const sig = req.headers['x-signature-ed25519'] as string;
 		const timestamp = req.headers['x-signature-timestamp'] as string;
 		const key = client.key;
@@ -202,4 +201,5 @@ if (client) {
 	});
 }
 
+server.use(express.json());
 server.listen(Number(port));
