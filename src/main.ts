@@ -157,7 +157,7 @@ if (client) {
 					footer: { text: 'Sally uwu' },
 					timestamp: new Date,
 					image: {
-						url: `http://${host}/pics/${newID}`,
+						url: `http://${host}/pics/${newID.split('.')[0]}`,
 					}
 				}],
 				flags: 64,
