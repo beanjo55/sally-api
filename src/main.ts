@@ -91,7 +91,7 @@ server.get(['/', '/random'], (req, res) => {
 });
 
 if (client) {
-
+	console.log('Client specified, creating interaction endpoint');
 	function sallyPosterhandler(req: Request, res: Response) {
 		return res.status(200).send({
 			type: 4,
@@ -155,10 +155,11 @@ if (client) {
 	server.post('/interaction', (req, res) => {
 		const sig = req.headers['x-signature-ed25519'] as string;
 		const timestamp = req.headers['x-signature-timestamp'] as string;
-		const clientId = req.body['application_id'];
+		const clientId = req.body?.['application_id'];
 		const key = client.key;
 	
 		if (!sig || !timestamp || !clientId || !key) {
+			console.log('malformed interaction');
 			return res.status(401).end('invalid request signature');
 		}
 
@@ -169,10 +170,12 @@ if (client) {
 		);
 
 		if (!isVerified) {
+			console.log('invalid interaction');
 			return res.status(401).end('invalid request signature');
 		}
 
 		if (req.body.type === 1) {
+			console.log('ping interaction');
 			return res.status(200).send({ type: 1 });
 		}
 
