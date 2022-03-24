@@ -136,11 +136,13 @@ if (client) {
 		if (!user || user !== client.adminId) {
 			return res.status(200).send({
 				type: 4,
-				flags: 64,
-				embeds: [{
-					color: 0xf04947,
-					description: '<:error:732383200436813846> Unknown command.'
-				}],
+				data: {
+					flags: 64,
+					embeds: [{
+						color: 0xf04947,
+						description: '<:error:732383200436813846> Unknown command.'
+					}],
+				}
 			});
 		}
 
@@ -212,14 +214,43 @@ if (client) {
 				return sallyAdminHandler(req, res);
 			}
 
+			case 'info': {
+				return res.status(200).send({
+					type: 4,
+					data: {
+						flags: 64,
+						embeds: [{
+							color: 0xf04947,
+							description: 'Sally is a 5 year old chocolate lab and is the cutest dog around',
+							fields: [
+								{
+									name: 'How do I add this bot?',
+									value: 'You can use the \'Add to server\' button on the bots\'s profile.',
+								},
+								{
+									name: 'Source',
+									value: 'This project is open source and can be [found here.](https://github.com/beanjo55/sally-api)\nYou can run your own by filling in the config and tweaking the name to suit your needs.'
+								},
+								{
+									name: 'Created by',
+									value: 'bean#8086',
+								},
+							]
+						}],
+					}
+				});
+			}
+
 			default: {
 				return res.status(200).send({
 					type: 4,
-					flags: 64,
-					embeds: [{
-						color: 0xf04947,
-						description: '<:error:732383200436813846> Unknown command.'
-					}],
+					data: {
+						flags: 64,
+						embeds: [{
+							color: 0xf04947,
+							description: '<:error:732383200436813846> Unknown command.'
+						}],
+					}
 				});
 			}
 		}
