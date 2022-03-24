@@ -164,6 +164,7 @@ if (client) {
 		console.log('deferred')
 		addPic(url).then((newID) => {
 			loadPics();
+			console.log(picCache)
 			axios.patch(`https://discord.com/api/v10/webhooks/${req.body.application_id}/${req.body.token}/messages/@original`, {
 				embeds: [{
 					color: 0xf04947,
