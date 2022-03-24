@@ -159,7 +159,7 @@ if (client) {
 						},
 					}],
 				}
-			}).catch(() => false);
+			}).catch(console.error);
 		}).catch((err) => {
 			console.error(err);
 			axios.patch(`https://discord.com/api/v10/webhooks/${req.body.application_id}/${req.body.token}/messages/@original`, {
@@ -171,7 +171,7 @@ if (client) {
 						timestamp: new Date,
 					}],
 				}
-			}).catch(() => false);
+			}).catch(console.error);
 		});
 	}
 
