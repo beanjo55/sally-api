@@ -125,7 +125,19 @@ if (client) {
 				}
 			}],
 		})
-		return res.status(200).send({
+		res.status(200).send({ type: 5 });
+		axios.patch(`https://discord.com/api/v10/webhooks/${req.body.application_id}/${req.body.token}/messages/@original`, {
+			embeds: [{
+				color: 0xf04947,
+				title: 'Found Sally!!!',
+				footer: { text: 'Sally uwu' },
+				timestamp: new Date,
+				image: {
+					url: `http://${host}/pics/${pickRandom().id}`
+				}
+			}],
+		}).catch(console.error);
+		/**return res.status(200).send({
 			type: 4,
 			embeds: [{
 				color: 0xf04947,
@@ -136,7 +148,7 @@ if (client) {
 					url: `http://${host}/pics/${pickRandom().id}`
 				}
 			}],
-		});
+		});*/
 	}
 
 	function sallyAdminHandler(req: Request, res: Response) {
