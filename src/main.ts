@@ -37,7 +37,7 @@ function pickRandom(): { id: number, path: string } {
 }
 
 async function addPic(url: string): Promise<string> {
-	const nextID = picCache.length ? Math.max(...picCache.map(p => p.id)) + 1 : 1;
+	const nextID = picCache.length ? Math.max(...picCache.map(p => p.id)) + 1 : 0;
 
 	const res = await axios({
 		method: 'GET',
